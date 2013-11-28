@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>milkers image selector</title>
+    <script src="js/jquery-1.9.1.min.js"></script>
+    <script src="js/jquery.isotope.min.js"></script>
+    <script src="js/jquery-isotope-example.js"></script>
+    <script src="js/highslide/highslide/highslide.js"></script>
+    <script src="js/jquery-1.10.2.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="css/jquery-isotope-example.css">
+    
+  </head>
+
+  <body onload="addElement()">
+
+
+    <!-- -->
+    <div>THANK YOU FOR ATTENDING OUR USER STUDY,<br>
+        <b>PLEASE BE SURE TO CHECK <a href="rules.html" target="_blank" style="font-size:20px">RULES</a> BEFORE STARTING!</b>
+    </div>
+    <!-- p>Num of images: <input type="text" id="userInputNum" value="6"></input></p -->
+    <!-- <p>Folder name: <input type="text" id="userInputFolder" value="images"></input></p> -->
+    <div id="placeholder"></div>
+    <br>
+    
+    <script type="text/javascript">
+    function biggerImage(name){
+        alert(name);
+    }
+
+    var images = [];
+    // var userInputNum = document.getElementById("userInputNum").value;
+    var userInputNum = 300;//number of images shown to the user.
+    // var userInputFolder = document.getElementById("userInputFolder").value;
+    var userInputFolder = getQueryVariable("param1");//reads folder name from query string.
+    function getQueryVariable(variable) {
+      var query = window.location.search.substring(1);
+      var vars = query.split("&");
+      for (var i=0;i<vars.length;i++) {
+        var pair = vars[i].split("=");
+        if (pair[0] == variable) {
+            // alert('Query Variable ' + variable + '=' + pair[1]);
+            return pair[1];
+        }
+      } 
+      alert('Query Variable ' + variable + ' not found');
+    }
+        
+    var orImageSizes = [];
+    for (var i = 1; i <= userInputNum; i++) {
+
+        var newDiv = document.createElement("div");
+        newDiv.id = "imagediv_"+i;//should define an id for each dynamic div here.        
+    
+        var tempWidth = 400;//sets the size of each image on the page.
+        newDiv.setAttribute("style", "width:"+(tempWidth+10)+"px;height:" +(tempWidth+100)+"px;float:left;border:2px solid;background:#dddddd;");
+
+        images[i] = new Image(); // creates an image
+        images[i].class = "image";
+        images[i].src = "userFolders/" + userInputFolder.substring(0,4) + "/" + userInputFolder.substring(4,userInputFolder.length) + "/" + i + ".jpg"; // gets image location from table
+        // images[i].src = "userFolders/" + userInputFolder + "/" + i + ".jpg";
+        images[i].name = userInputFolder + "_" + i; // name property of the image.
+        orImageSizes[2*i-1] = images[i].width;
+        orImageSizes[2*i] = images[i].height;
+        // images[i].onload=function(){            
+        //     // alert('load success jpg');
+        // }
+        // images[i].onerror=function(){
+        //     alert('load fail jpg');
+        //     images[i].src = userInputFolder + "/" + i + ".gif";
+        // }
+        // if (typeof this.src == 'undefined') {
+        //     images[i].src = userInputFolder + "/" + i + ".png"; // gets image location from table    
+        // };
+        // if(typeof this.src == 'undefined'){
+        //     images[i].src = userInputFolder + "/" + i + ".gif"; // gets image location from table    
+        // };
+
+        // images[i].onload = function(){
+        //     alert('image:' + this.src + ' width:'+ this.width + ' height:' + this.height);
+        // }
+        
+        
+        // images[i].setAttribute("width", tempWidth);
+        // images[i].setAttribute("height", tempWidth);
+        
+        if (images[i].addEventListener){
+            images[i].addEventListener("click", function () { /* Do something */ 
+                var nameLength = this.name.length;
+                var start = nameLength-5;
+                var index = this.name.substring(start,start+1);
+                // alert(this.name + ' size is ' + orImageSizes[2*parseInt(index)-1] + ' by ' + orImageSizes[2*parseInt(index)] + ' index=' + index);
+                //alert(this.name + ' size is ' + this.width + ' by ' + orImageSizes[2*parseInt(index)] + ' index=' + index);
+                alert("This is image " + this.name);
+
+
+
+            });
+        }
+        // if (images[i].addEventListener){
+        //     images[i].addEventListener("click", biggerImage('baba'));
+        // }
+        else if (images[i].attachEvent){ // addEventListener isn't always supported
+            images[i].attachEvent("onTouchDown", function () { /* Do something */                 
+                alert(images[i].name + " no event listener!");
+            });
+        }   
+        images[i].style.height = tempWidth + "px";
+        images[i].style.width = tempWidth + "px";
+        images[i].style.marginLeft = (5)+"px"; // pushes images 5 pixels to the left
+        images[i].style.marginTop = (5)+"px"; // pushes images 5 pixels to the left
+        //document.body.appendChild(images[i]); // append newly created image to body
+
+        /*
+        var tempImg = document.getElementsByName("imagename_" + i + ".jpg")[0];
+        tempImg.onmouseover=function(){
+          alert(tempImg.name);
+        };*/
+
+        var checkIn1 = document.createElement("input");
+        checkIn1.type = "checkbox";
+        checkIn1.id = "image_"+i+"_cb1";
+        var label1 = document.createElement('label');
+        label1.htmlFor = "image_"+i+"_cb1";//it should be same with id of checkIn1
+        // label1.style.color = '#FF0505';
+        label1.appendChild(document.createTextNode('Anger'));//emotion_1
+
+        var checkIn2 = document.createElement("input");
+        checkIn2.type = "checkbox";
+        checkIn2.id = "image_"+i+"_cb2";
+        var label2 = document.createElement('label');
+        label2.htmlFor = "image_"+i+"_cb2";
+        // label2.style.color = '#FFBF80';
+        label2.appendChild(document.createTextNode('Anticipation'));
+
+        var checkIn3 = document.createElement("input");
+        checkIn3.type = "checkbox";    
+        checkIn3.id = "image_"+i+"_cb3";
+        var label3 = document.createElement('label');
+        label3.htmlFor = "image_"+i+"_cb3";
+        // label3.style.color = '#FFFF00';
+        label3.appendChild(document.createTextNode('Joy'));
+
+        var checkIn4 = document.createElement("input");
+        checkIn4.type = "checkbox"; 
+        checkIn4.id = "image_"+i+"_cb4";
+        var label4 = document.createElement('label');
+        label4.htmlFor = "image_"+i+"_cb4";
+        // label4.style.color = '#9ACD32';
+        label4.appendChild(document.createTextNode('Trust'));
+
+        var checkIn5 = document.createElement("input");
+        checkIn5.type = "checkbox"; 
+        checkIn5.id = "image_"+i+"_cb5";
+        var label5 = document.createElement('label');
+        label5.htmlFor = "image_"+i+"_cb5";
+        // label5.style.color = '#00CC00';
+        label5.appendChild(document.createTextNode('Fear'));
+
+        var checkIn6 = document.createElement("input");
+        checkIn6.type = "checkbox"; 
+        checkIn6.id = "image_"+i+"_cb6";
+        var label6 = document.createElement('label');
+        label6.htmlFor = "image_"+i+"_cb6";
+        // label6.style.color = '#0066CC';
+        label6.appendChild(document.createTextNode('Surprise'));
+
+        var checkIn7 = document.createElement("input");
+        checkIn7.type = "checkbox"; 
+        checkIn7.id = "image_"+i+"_cb7";
+        var label7 = document.createElement('label');
+        label7.htmlFor = "image_"+i+"_cb7";
+        // label7.style.color = '#CC00CC';
+        label7.appendChild(document.createTextNode('Sadness'));
+
+        var checkIn8 = document.createElement("input");
+        checkIn8.type = "checkbox"; 
+        checkIn8.id = "image_"+i+"_cb8";
+        var label8 = document.createElement('label');
+        label8.htmlFor = "image_"+i+"_cb8";
+        // label8.style.color = '#FF33FF';
+        label8.appendChild(document.createTextNode('Disgust'));
+
+        var checkIn9 = document.createElement("input");
+        checkIn9.type = "checkbox";                     
+        checkIn9.id = "image_"+i+"_cb9";
+        var label9 = document.createElement('label');
+        label9.htmlFor = "image_"+i+"_cb9";
+        // label9.style.color = '#D3D3D3';//light gray
+        label9.appendChild(document.createTextNode('Neutral'));//emotion_9
+
+        //Add single image to newDiv
+        newDiv.appendChild(images[i]);
+
+        //Create a 3 x 3 table of choices and add it below image.
+        var mytable = document.createElement("table");
+        mytable.id = "mytable";
+        mytable.style.marginLeft = (10)+"px";
+
+        var tbody = document.createElement("tbody");
+        //first row
+        var row1 = document.createElement("tr");
+        var cell1 = document.createElement("td");
+        cell1.appendChild(checkIn1);
+        cell1.appendChild(label1);
+        var cell2 = document.createElement("td");
+        cell2.appendChild(checkIn2);
+        cell2.appendChild(label2);
+        var cell3 = document.createElement("td");
+        cell3.appendChild(checkIn3);
+        cell3.appendChild(label3);
+        var cell4 = document.createElement("td");
+        cell4.appendChild(checkIn4);
+        cell4.appendChild(label4);
+        row1.appendChild(cell1);
+        row1.appendChild(cell2);
+        row1.appendChild(cell3);
+        row1.appendChild(cell4);
+        //second row
+        var row2 = document.createElement("tr");
+        var cell5 = document.createElement("td");
+        cell5.appendChild(checkIn5);
+        cell5.appendChild(label5);
+        var cell6 = document.createElement("td");
+        cell6.appendChild(checkIn6);
+        cell6.appendChild(label6);
+        var cell7 = document.createElement("td");
+        cell7.appendChild(checkIn7);
+        cell7.appendChild(label7);
+        var cell8 = document.createElement("td");
+        cell8.appendChild(checkIn8);
+        cell8.appendChild(label8);
+        row2.appendChild(cell5);
+        row2.appendChild(cell6);
+        row2.appendChild(cell7);
+        row2.appendChild(cell8);
+        //third row
+        var row3 = document.createElement("tr");
+        var cell9 = document.createElement("td");
+        // cell9.appendChild(checkIn9);
+        // cell9.appendChild(label9);
+        var cell10 = document.createElement("td");
+        // cell10.appendChild(checkIn9);
+        // cell10.appendChild(label9);
+        var cell11 = document.createElement("td");
+        // cell11.appendChild(checkIn9);
+        // cell11.appendChild(label9);
+        var cell12 = document.createElement("td");
+        cell12.appendChild(checkIn9);
+        cell12.appendChild(label9);
+        row3.appendChild(cell9);
+        row3.appendChild(cell10);
+        row3.appendChild(cell11);
+        row3.appendChild(cell12);
+        //add all rows to table
+        tbody.appendChild(row1);
+        tbody.appendChild(row2);
+        tbody.appendChild(row3);
+        mytable.appendChild( tbody );
+        newDiv.appendChild( mytable );
+
+        // newDiv.appendChild(checkIn1);
+        // newDiv.appendChild(label1);
+        // add the newly created element and its content into the DOM
+        my_div = document.getElementById("org_div2");
+        document.body.insertBefore(newDiv, my_div);//inserts newDiv before my_div like a stack.
+
+    }//end of for 
+
+    </script>
+
+        
+    <div style="overflow:hidden;clear:both;">    
+        <div id='org_div2'><br>If you are finished please submit your work by clicking the button below.</div>
+        <!--button onclick="createResultPage()">Result button</button-->
+        <!--input id='finalcheckbox' type="radio" onclick="createResultPage()" /> Please check before submit your result!-->
+        <button id='computeresultsbutton' onclick="createResultPage()">Submit your votes!</button>
+        <br>
+    </div>
+    <br><br>
+
+    <script type="text/javascript">
+        function createResultPage(){
+            //iterate over all checkboxes
+            //Create a new resultJson each time user clicks result button.
+            //json result collectors.
+            var isEveryImageChecked = false;
+            var resultData = {};
+            var imResults = [];
+            resultData.imResults = imResults;
+            for (var i = 1; i <= userInputNum; i++) {
+                isEveryImageChecked = false;
+                for(var j = 1; j <= 9; j++){
+                    var tmpCbx = document.getElementById('image_'+i+'_cb'+j);
+                    if(tmpCbx.checked){
+                        // alert('image '+i+' checkbox '+j+' is checked.');
+                        var tempImage = {"imageName":images[i].name, "emotion":"emotion_"+j};
+                        resultData.imResults.push(tempImage);
+                        // document.getElementById('placeholder').innerHTML = JSON.stringify(resultData);
+                        isEveryImageChecked = true;
+                    }                    
+                }
+                if(!isEveryImageChecked){
+                    alert('please check this image=> ' + images[i].name);
+                    break;
+                }
+            }
+
+            if(isEveryImageChecked){
+                // newwindow=window.open();
+                // newdocument=newwindow.document;
+                alert("Thank you we saved your result.");   
+                document.getElementById('finalResult').value = JSON.stringify(resultData);
+                document.getElementById('userfoldername').value = userInputFolder;
+                // document.getElementById('finalsendbutton').style.display = "";
+                document.getElementById('finalsendbutton').click();
+                
+
+                // newdocument.write(JSON.stringify(resultData));
+                // newdocument.close(); 
+            }   
+            
+        }
+
+    </script>
+
+    <div>--</div>
+
+    <form action="mytest.php" method="POST">
+        <input type="hidden" name="name" id="userfoldername" />
+        <!--Age: <input type="text" name="age" /-->
+        <input type="hidden" name="jsonResult" id="finalResult"  />
+        <input id="finalsendbutton" type="submit" style="display:none" value="Send Result!" />
+    </form>
+
+    <br><br>
+
+
+  </body>
+</html>
