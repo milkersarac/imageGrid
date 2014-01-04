@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>milkers image selector</title>
+    <script src="js/jquery-1.9.1.min.js"></script>
+    <script src="js/jquery.isotope.min.js"></script>
+    <script src="js/jquery-isotope-example.js"></script>
+    <script src="js/highslide/highslide/highslide.js"></script>
+    <script src="js/jquery-1.10.2.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="css/jquery-isotope-example.css">
+    
+  </head>
+
+  <body onload="addElement()">
+
+
+    <!-- 
+    <div>Thank you for taking this survey. Upon completing it, please click the button at the bottom of the page to submit your work. 
+        <br>You can click on any image to see the image number(i.e. set#user_#_<i>imageNumber</i>).<br>
+        <b>Please read the following <a href="rules.html" target="_blank" style="color:red;">instructions</a> before taking the survey.</b>
+    </div>
+    -->
+    <!-- p>Num of images: <input type="text" id="userInputNum" value="6"></input></p -->
+    <!-- <p>Folder name: <input type="text" id="userInputFolder" value="images"></input></p> -->
+    <script>
+    function displayQueryEmotionResult()
+    {
+        var query=document.getElementById("query").value;
+        var emotion=document.getElementById("emotion").value;
+        var finalDir=emotion + "_" + query;
+
+        alert(finalDir);
+        
+        return finalDir;
+    }
+    </script>
+    <div id="selectQueryEmotion">
+        <form>
+        Query:
+        <select id="query">
+            <option>dog</option>
+            <option>Pear</option>
+            <option>Banana</option>
+            <option>Orange</option>
+        </select>
+        Emotion:
+        <select id="emotion">
+            <option>anger</option>
+            <option>anticipation</option>
+            <option>joy</option>
+            <option>trust</option>
+            <option>fear</option>
+            <option>surprise</option>
+            <option>sadness</option>
+            <option>disgust</option>
+            <option>neutral</option>
+        </select>
+        </form>
+        <br>
+        <button type="button" onclick="displayQueryEmotionResult()">Select</button>
+    </div>
+    <br>
+    
+    <script type="text/javascript">
+    alert(displayQueryEmotionResult() + ' is here!');
+
+    function biggerImage(name){
+        alert(name);
+    }
+
+    var images = [];
+    var userInputNum = 20;//number of images shown to the user.
+        
+    var orImageSizes = [];
+    for (var i = 1; i <= userInputNum; i++) {
+
+        var newDiv = document.createElement("div");
+        newDiv.id = "imagediv_"+i;//should define an id for each dynamic div here.        
+    
+        var tempWidth = 400;//sets the size of each image on the page.
+        newDiv.setAttribute("style", "width:"+(tempWidth+10)+"px;height:" +(tempWidth+100)+"px;float:left;border:2px solid;background:#dddddd;");
+
+        images[i] = new Image(); // creates an image
+        images[i].class = "image";
+        // images[i].src = "userFolders/" + userInputFolder.substring(0,4) + "/" + userInputFolder.substring(4,userInputFolder.length) + "/" + i + ".jpg"; // gets image location from table
+        images[i].src = "emotions/" + "joy" + "/" + "dog" + "/" + i + ".jpg"; // gets image location from table
+
+        // images[i].src = "userFolders/" + userInputFolder + "/" + i + ".jpg";
+        images[i].name = "image" + "_" + i; // name property of the image.
+        orImageSizes[2*i-1] = images[i].width;
+        orImageSizes[2*i] = images[i].height;
+        
+        if (images[i].addEventListener){
+            images[i].addEventListener("click", function () { /* Do something */ 
+                var nameLength = this.name.length;
+                var start = nameLength-5;
+                var index = this.name.substring(start,start+1);
+                // alert(this.name + ' size is ' + orImageSizes[2*parseInt(index)-1] + ' by ' + orImageSizes[2*parseInt(index)] + ' index=' + index);
+                //alert(this.name + ' size is ' + this.width + ' by ' + orImageSizes[2*parseInt(index)] + ' index=' + index);
+                alert("This is image " + this.name);
+            });
+        }
+        else if (images[i].attachEvent){ // addEventListener isn't always supported
+            images[i].attachEvent("onTouchDown", function () { /* Do something */                 
+                alert(images[i].name + " no event listener!");
+            });
+        }   
+        images[i].style.height = tempWidth + "px";
+        images[i].style.width = tempWidth + "px";
+        images[i].style.marginLeft = (5)+"px"; // pushes images 5 pixels to the left
+        images[i].style.marginTop = (5)+"px"; // pushes images 5 pixels to the left
+        //document.body.appendChild(images[i]); // append newly created image to body
+
+        var checkIn1 = document.createElement("input");
+        checkIn1.type = "checkbox";
+        checkIn1.id = "image_"+i+"_cb1";
+        var label1 = document.createElement('label');
+        label1.htmlFor = "image_"+i+"_cb1";//it should be same with id of checkIn1
+        // label1.style.color = '#FF0505';
+        label1.appendChild(document.createTextNode('Relevant'));//relevancy button
+
+        var checkIn2 = document.createElement("input");
+        checkIn2.type = "checkbox";
+        checkIn2.id = "image_"+i+"_cb2";
+        var label2 = document.createElement('label');
+        label2.htmlFor = "image_"+i+"_cb2";
+        // label2.style.color = '#FFBF80';
+        label2.appendChild(document.createTextNode('Emotion'));//emotion exist button
+
+        //Add single image to newDiv
+        newDiv.appendChild(images[i]);
+
+        //Create a 3 x 3 table of choices and add it below image.
+        var mytable = document.createElement("table");
+        mytable.id = "mytable";
+        mytable.style.marginLeft = (10)+"px";
+
+        var tbody = document.createElement("tbody");
+        //first row
+        var row1 = document.createElement("tr");
+        var cell1 = document.createElement("td");
+        cell1.appendChild(checkIn1);
+        cell1.appendChild(label1);
+        var cell2 = document.createElement("td");
+        cell2.appendChild(checkIn2);
+        cell2.appendChild(label2);
+
+        row1.appendChild(cell1);
+        row1.appendChild(cell2); 
+        
+        //add all rows to table
+        tbody.appendChild(row1);
+        mytable.appendChild( tbody );
+        newDiv.appendChild( mytable );
+
+        // newDiv.appendChild(checkIn1);
+        // newDiv.appendChild(label1);
+        // add the newly created element and its content into the DOM
+        my_div = document.getElementById("org_div2");
+        document.body.insertBefore(newDiv, my_div);//inserts newDiv before my_div like a stack.
+
+    }//end of for 
+
+    </script>
+
+        
+    <div style="overflow:hidden;clear:both;">    
+        <div id='org_div2'><br></div>
+        <!--button onclick="createResultPage()">Result button</button-->
+        <!--input id='finalcheckbox' type="radio" onclick="createResultPage()" /> Please check before submit your result!-->
+        <button id='computeresultsbutton' onclick="createResultPage()">Submit your votes!</button>
+        <br>
+    </div>
+    <br><br>
+
+    <script type="text/javascript">
+        function createResultPage(){
+            //iterate over all checkboxes
+            //Create a new resultJson each time user clicks result button.
+            //json result collectors.
+            var isEveryImageChecked = false;
+            var resultData = {};
+            var imResults = [];
+            resultData.imResults = imResults;
+            for (var i = 1; i <= userInputNum; i++) {
+                isEveryImageChecked = false;
+                for(var j = 1; j <= 9; j++){
+                    var tmpCbx = document.getElementById('image_'+i+'_cb'+j);
+                    if(tmpCbx.checked){
+                        // alert('image '+i+' checkbox '+j+' is checked.');
+                        var tempImage = {"imageName":images[i].name, "emotion":"emotion_"+j};
+                        resultData.imResults.push(tempImage);
+                        // document.getElementById('placeholder').innerHTML = JSON.stringify(resultData);
+                        isEveryImageChecked = true;
+                    }                    
+                }
+                if(!isEveryImageChecked){
+                    alert('please check this image=> ' + images[i].name);
+                    break;
+                }
+            }
+
+            if(isEveryImageChecked){
+                // newwindow=window.open();
+                // newdocument=newwindow.document;
+                alert("Thank you we saved your result.");   
+                document.getElementById('finalResult').value = JSON.stringify(resultData);
+                document.getElementById('userfoldername').value = userInputFolder;
+                // document.getElementById('finalsendbutton').style.display = "";
+                document.getElementById('finalsendbutton').click();
+                
+
+                // newdocument.write(JSON.stringify(resultData));
+                // newdocument.close(); 
+            }   
+            
+        }
+
+    </script>
+
+    <div>--</div>
+
+    <form action="mytest.php" method="POST">
+        <input type="hidden" name="name" id="userfoldername" />
+        <!--Age: <input type="text" name="age" /-->
+        <input type="hidden" name="jsonResult" id="finalResult"  />
+        <input id="finalsendbutton" type="submit" style="display:none" value="Send Result!" />
+    </form>
+
+    <br><br>
+
+
+  </body>
+</html>
