@@ -14,23 +14,21 @@
 
   <body onload="addElement()">
 
-
-    <!-- 
-    <div>Thank you for taking this survey. Upon completing it, please click the button at the bottom of the page to submit your work. 
-        <br>You can click on any image to see the image number(i.e. set#user_#_<i>imageNumber</i>).<br>
-        <b>Please read the following <a href="rules.html" target="_blank" style="color:red;">instructions</a> before taking the survey.</b>
-    </div>
-    -->
-    <!-- p>Num of images: <input type="text" id="userInputNum" value="6"></input></p -->
-    <!-- <p>Folder name: <input type="text" id="userInputFolder" value="images"></input></p> -->
     <script>
     function displayQueryEmotionResult()
     {
         var query=document.getElementById("query").value;
         var emotion=document.getElementById("emotion").value;
-        var finalDir=emotion + "_" + query;
+        if (emotion == "neutral") {
+            emotion = "";
+        }
+        else{
+            emotion = emotion + "_";
+        };
+        var finalDir=emotion + query;
 
-        alert(finalDir);
+        // alert(finalDir);
+        // window.location.reload();
         
         return finalDir;
     }
@@ -39,7 +37,7 @@
         <form>
         Query:
         <select id="query">
-            <option>dog</option>
+            <option>autumn</option>
             <option>Pear</option>
             <option>Banana</option>
             <option>Orange</option>
@@ -48,7 +46,7 @@
         <select id="emotion">
             <option>anger</option>
             <option>anticipation</option>
-            <option>joy</option>
+            <option>happy</option>
             <option>trust</option>
             <option>fear</option>
             <option>surprise</option>
@@ -58,17 +56,16 @@
         </select>
         </form>
         <br>
-        <button type="button" onclick="displayQueryEmotionResult()">Select</button>
+        <button type="button" onclick="window.location.reload()">Select</button>
     </div>
     <br>
     
     <script type="text/javascript">
-    alert(displayQueryEmotionResult() + ' is here!');
+    var finalDirectory = displayQueryEmotionResult();
+    alert("Images are prepared for the query\n=> " + finalDirectory);
+    // readAndAddImages(finalDirectory);
 
-    function biggerImage(name){
-        alert(name);
-    }
-
+    // function readAndAddImages(finalDirectory){
     var images = [];
     var userInputNum = 20;//number of images shown to the user.
         
@@ -84,7 +81,7 @@
         images[i] = new Image(); // creates an image
         images[i].class = "image";
         // images[i].src = "userFolders/" + userInputFolder.substring(0,4) + "/" + userInputFolder.substring(4,userInputFolder.length) + "/" + i + ".jpg"; // gets image location from table
-        images[i].src = "emotions/" + "joy" + "/" + "dog" + "/" + i + ".jpg"; // gets image location from table
+        images[i].src = "last_study_data/" + finalDirectory + "/image_" + i + ".jpg"; // gets image location from table
 
         // images[i].src = "userFolders/" + userInputFolder + "/" + i + ".jpg";
         images[i].name = "image" + "_" + i; // name property of the image.
@@ -159,8 +156,9 @@
         // add the newly created element and its content into the DOM
         my_div = document.getElementById("org_div2");
         document.body.insertBefore(newDiv, my_div);//inserts newDiv before my_div like a stack.
-
     }//end of for 
+
+    // }//end of function readAndAddImages()
 
     </script>
 
@@ -183,9 +181,13 @@
             var resultData = {};
             var imResults = [];
             resultData.imResults = imResults;
+
+            // alert("ilker");
+            // alert("userInputNum= " + userInputNum);
+
             for (var i = 1; i <= userInputNum; i++) {
                 isEveryImageChecked = false;
-                for(var j = 1; j <= 9; j++){
+                for(var j = 1; j <= 2; j++){
                     var tmpCbx = document.getElementById('image_'+i+'_cb'+j);
                     if(tmpCbx.checked){
                         // alert('image '+i+' checkbox '+j+' is checked.');

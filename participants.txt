@@ -1,13 +1,13 @@
 Pinar Duygulu -	set3user_1 - x
-		set3user_2 - o
+		set3user_2 - x
 		set3user_3 - x
-		set3user_4 - o
-		set3user_5 - o
+		set3user_4 - x
+		set3user_5 - x
 		set3user_6 - x
 		set2user_1 - x
-		set2user_2 - o
-		set2user_3 - o
-		set2user_4 - o
+		set2user_2 - x
+		set2user_3 - x
+		set2user_4 - x
 
 Ioannis Arapakis - set3user_7 - x
 		set3user_8 - x
@@ -28,27 +28,27 @@ Ioannis Arapakis - set3user_7 - x
 		set3user_23 - x
 		set3user_24 - x
 		set3user_25 - x
-		set3user_26 - o
-		set3user_27 - o
+		set3user_26 - x
+		set3user_27 - x
 		set3user_28 - x
 		set3user_29 - x
 		set3user_41 - x
-		set2user_11 - o
+		set2user_11 - x
 		set2user_12 - x
 		set2user_13 - x
-		set2user_14 - o
+		set2user_14 - x
 		set2user_15 - x
 		set2user_16 - x
-		set2user_17 - o
-		set2user_18 - o
+		set2user_17 - x
+		set2user_18 - x
 		set2user_19 - x
 		set2user_20 - x
-		set2user_21 - o
+		set2user_21 - x
 		set2user_22 - x
-		set2user_23 - o
-		set2user_24 - o
+		set2user_23 - x
+		set2user_24 - x
 		set2user_25 - x
-		set2user_26 - o
+		set2user_26 - x
 		set2user_27 - x
 		set2user_28 - x
 		set2user_29 - x
@@ -57,18 +57,18 @@ Ioannis Arapakis - set3user_7 - x
 		set2user_32 - x
 		set2user_33 - x
 		set2user_34 - x
-		set2user_35 - o
+		set2user_35 - x
 		set2user_36 - x
-		set2user_37 - o
-		set2user_38 - o
-		set2user_39 - o
-		set2user_40 - o
+		set2user_37 - x
+		set2user_38 - x
+		set2user_39 - x
+		set2user_40 - x
 
-Barla Cambazoglu - set2user_41 - o
-		set2user_42 - o
-		set2user_43 - o
-		set2user_44 - o
-		set2user_45 - o
+Barla Cambazoglu - set2user_41 - x
+		set2user_42 - x
+		set2user_43 - x
+		set2user_44 - x
+		set2user_45 - x
 		set1user_1 - o
 		set1user_2 - o
 		set1user_3 - o
@@ -80,26 +80,26 @@ M.Ilker Sarac -	set3user_45 - x
 		set3user_31 - x
 		set3user_32 - x
 		set3user_33 - x
-		set1user_6 - o
-		set1user_7 - o
-		set1user_8 - o
-		set1user_9 - o
-		set1user_10 - o
-		set1user_11 - o
-		set1user_12 - o
-		set1user_13 - o
-		set1user_14 - o
-		set1user_15 - o
-		set1user_16 - o
-		set1user_17 - o
-		set1user_18 - o
-		set1user_19 - o
-		set1user_20 - o
-		set1user_21 - o
-		set1user_22 - o
-		set1user_23 - o
-		set1user_24 - o
-		set1user_25 - o
+		set1user_6 - x
+		set1user_7 - x
+		set1user_8 - x
+		set1user_9 - x
+		set1user_10 - x	
+		set1user_11 - x
+		set1user_12 - x
+		set1user_13 - x
+		set1user_14 - x
+		set1user_15 - x
+		set1user_16 - x
+		set1user_17 - x
+		set1user_18 - x
+		set1user_19 - x
+		set1user_20 - x
+		set1user_21 - x
+		set1user_22 - x
+		set1user_23 - x
+		set1user_24 - x
+		set1user_25 - x
 
 Anil Armagan - 	set3user_34 - x
 
@@ -108,37 +108,34 @@ Ahmet Iscen - 	set3user_35 - x
 		set3user_37 - x
 		set3user_38 - x
 		set3user_39 - x
-		set2user_5 - o
+		set2user_5 - x
 		set2user_6 - x
-		set2user_7 - o
+		set2user_7 - x
 		set2user_8 - x
 		set2user_9 - x
 		set2user_10 - x
-		set1user_26 - o
-		set1user_27 - o
-		set1user_28 - o
-		set1user_29 - o
-		set1user_30 - o
-		set1user_31 - o
-		set1user_32 - o
-		set1user_33 - o
-		set1user_34 - o
-		set1user_35 - o
-		set1user_36 - o
-		set1user_37 - o
-		set1user_38 - o
-		set1user_39 - o
-		set1user_40 - o
-		set1user_41 - o
-		set1user_42 - o
-		set1user_43 - o
-		set1user_44 - o
-		set1user_45 - o
+		set1user_26 - x
+		set1user_27 - x
+		set1user_28 - x
+		set1user_29 - x
+		set1user_30 - x
+		set1user_31 - x
+		set1user_32 - x
+		set1user_33 - x
+		set1user_34 - x
+		set1user_35 - x
+		set1user_36 - x
+		set1user_37 - x
+		set1user_38 - x
+		set1user_39 - x
+		set1user_40 - x
+		set1user_41 - x
+		set1user_42 - x
+		set1user_43 - x
+		set1user_44 - x
+		set1user_45 - x
 
-
-Marzie Rasekh - 	set3user_40 - o
-Zeki Anil Ertin - 	set3user_32 - d
-Burak Eserol - 		set3user_33 - d
+Caner Mercan - 		set3user_40 - x
 Melisa Gulseren - 	set3user_42 - x
 Firat Onar - 		set3user_43 - x
 Erdem Derebasoglu -	set3user_44 - x
@@ -146,3 +143,6 @@ Erdem Derebasoglu -	set3user_44 - x
 o: not complete
 x: complete
 d: assignment deleted from that person.
+
+Zeki Anil Ertin - 	set3user_32 - d
+Burak Eserol - 		set3user_33 - d
