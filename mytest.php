@@ -4,7 +4,7 @@
      echo "Thank you! ". $_POST['name']. "<br />";
      echo "Final result: ". $_POST['jsonResult']. "<br /><br />";
 
-     $directory = "./userResults/".$_POST['name'].".txt";
+     $directory = "./last_study_results/".$_POST['name'].".txt";
      $file = fopen($directory,"w");
      fwrite($file, "THANK YOU,\nThe result is below\n\n". $_POST['jsonResult']);
      fclose($file);

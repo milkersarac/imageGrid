@@ -8,6 +8,7 @@
     <script src="js/jquery-isotope-example.js"></script>
     <script src="js/highslide/highslide/highslide.js"></script>
     <script src="js/jquery-1.10.2.min.js"></script>
+    <script src="getimages.php"></script>
     <link rel="stylesheet" type="text/css" href="css/jquery-isotope-example.css">
     
   </head>
@@ -65,11 +66,21 @@
     alert("Images are prepared for the query\n=> " + finalDirectory);
     // readAndAddImages(finalDirectory);
 
-    // function readAndAddImages(finalDirectory){
     var images = [];
     var userInputNum = 20;//number of images shown to the user.
         
     var orImageSizes = [];
+
+    // pass finalDirectory ro getimages.php file as a parameter.
+    // window.location.href = "getimages.php?finalDir=" + finalDirectory;
+    // $.post('getimages.php', {'finalDir': finalDirectory});
+
+    var nameList = 'length=' + galleryarray.length + '>> ';
+    for (var i = 0; i < 20; i++) {
+        nameList = nameList + galleryarray[i] + ' ';    
+    };
+    alert('ilker: ' +  nameList);
+
     for (var i = 1; i <= userInputNum; i++) {
 
         var newDiv = document.createElement("div");
@@ -114,7 +125,6 @@
         checkIn1.id = "image_"+i+"_cb1";
         var label1 = document.createElement('label');
         label1.htmlFor = "image_"+i+"_cb1";//it should be same with id of checkIn1
-        // label1.style.color = '#FF0505';
         label1.appendChild(document.createTextNode('Relevant'));//relevancy button
 
         var checkIn2 = document.createElement("input");
@@ -122,8 +132,14 @@
         checkIn2.id = "image_"+i+"_cb2";
         var label2 = document.createElement('label');
         label2.htmlFor = "image_"+i+"_cb2";
-        // label2.style.color = '#FFBF80';
         label2.appendChild(document.createTextNode('Emotion'));//emotion exist button
+
+        var checkIn3 = document.createElement("input");
+        checkIn3.type = "checkbox";    
+        checkIn3.id = "image_"+i+"_cb3";
+        var label3 = document.createElement('label');
+        label3.htmlFor = "image_"+i+"_cb3";
+        label3.appendChild(document.createTextNode('Invalid'));
 
         //Add single image to newDiv
         newDiv.appendChild(images[i]);
@@ -142,23 +158,23 @@
         var cell2 = document.createElement("td");
         cell2.appendChild(checkIn2);
         cell2.appendChild(label2);
+        var cell3 = document.createElement("td");
+        cell3.appendChild(checkIn3);
+        cell3.appendChild(label3);
 
         row1.appendChild(cell1);
         row1.appendChild(cell2); 
+        row1.appendChild(cell3)
         
         //add all rows to table
         tbody.appendChild(row1);
         mytable.appendChild( tbody );
         newDiv.appendChild( mytable );
 
-        // newDiv.appendChild(checkIn1);
-        // newDiv.appendChild(label1);
         // add the newly created element and its content into the DOM
         my_div = document.getElementById("org_div2");
         document.body.insertBefore(newDiv, my_div);//inserts newDiv before my_div like a stack.
     }//end of for 
-
-    // }//end of function readAndAddImages()
 
     </script>
 
@@ -177,45 +193,57 @@
             //iterate over all checkboxes
             //Create a new resultJson each time user clicks result button.
             //json result collectors.
-            var isEveryImageChecked = false;
             var resultData = {};
             var imResults = [];
+            resultData.setName = finalDirectory;
             resultData.imResults = imResults;
 
             // alert("ilker");
             // alert("userInputNum= " + userInputNum);
 
             for (var i = 1; i <= userInputNum; i++) {
-                isEveryImageChecked = false;
-                for(var j = 1; j <= 2; j++){
-                    var tmpCbx = document.getElementById('image_'+i+'_cb'+j);
-                    if(tmpCbx.checked){
-                        // alert('image '+i+' checkbox '+j+' is checked.');
-                        var tempImage = {"imageName":images[i].name, "emotion":"emotion_"+j};
-                        resultData.imResults.push(tempImage);
-                        // document.getElementById('placeholder').innerHTML = JSON.stringify(resultData);
-                        isEveryImageChecked = true;
-                    }                    
-                }
-                if(!isEveryImageChecked){
-                    alert('please check this image=> ' + images[i].name);
-                    break;
-                }
+
+                // check the values of cb1 and cb2
+                var relcbx = document.getElementById('image_'+i+'_cb1');
+                var emocbx = document.getElementById('image_'+i+'_cb2');
+                var invalidcbx = document.getElementById('image_'+i+'_cb3');
+
+                var tempImage = {"imageName":images[i].name, "relevant":0, "emotion":0, "isValid":0};
+
+                // alert(typeof images[i]);
+
+                // here check if image exist?
+                if (relcbx.checked) {
+                    if (emocbx.checked) {
+                        // if an image is both relevant and the emotion exists
+                        tempImage = {"imageName":images[i].name, "relevant":1, "emotion":1, "isValid":1};
+                    } else{
+                        // if an image is relevant but emotion does not exist
+                        tempImage = {"imageName":images[i].name, "relevant":1, "emotion":0, "isValid":1};
+                    };
+                } else{
+                    if (invalidcbx.checked) {
+                        // if image is not appearing user should select invalid.
+                        tempImage = {"imageName":images[i].name, "relevant":0, "emotion":0, "isValid":0}
+                    } else{
+                        // if image is not relevant, then the existence of emotion is not important
+                        tempImage = {"imageName":images[i].name, "relevant":0, "emotion":0, "isValid":1};
+                    };
+                    
+                };
+
+                // push the results of tempImage to resultData json array.
+                resultData.imResults.push(tempImage);
+
             }
 
-            if(isEveryImageChecked){
-                // newwindow=window.open();
-                // newdocument=newwindow.document;
-                alert("Thank you we saved your result.");   
-                document.getElementById('finalResult').value = JSON.stringify(resultData);
-                document.getElementById('userfoldername').value = userInputFolder;
-                // document.getElementById('finalsendbutton').style.display = "";
-                document.getElementById('finalsendbutton').click();
-                
-
-                // newdocument.write(JSON.stringify(resultData));
-                // newdocument.close(); 
-            }   
+            // newwindow=window.open();
+            // newdocument=newwindow.document;
+            alert("Thank you we saved your result.");   
+            document.getElementById('finalResult').value = JSON.stringify(resultData);
+            document.getElementById('userfoldername').value = finalDirectory;
+            document.getElementById('finalsendbutton').click();
+            
             
         }
 
