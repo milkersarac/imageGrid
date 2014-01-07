@@ -36,24 +36,24 @@
 
     function submitQueryEmotion()
     {        
-        var tempDir = displayQueryEmotionResult();
-        alert('submit query emotion: ' + tempDir);
-        document.getElementById('imageDirSender').value = tempDir;
-        document.getElementById('imageDirSenderButton').click();
+        // var tempDir = displayQueryEmotionResult();
+        // alert('submit query emotion: ' + tempDir);
+        // document.getElementById('imageDirSender').value = tempDir;
+        // document.getElementById('imageDirSenderButton').click();
 
         window.location.reload();
     }
     </script>
     <div id="selectQueryEmotion">
         <form action="getimages.php" method="POST">
-        Query:
+        <label>Query:</label>
         <select id="query">
             <option>autumn</option>
             <option>Pear</option>
             <option>Banana</option>
             <option>Orange</option>
         </select>
-        Emotion:
+        <label>Emotion:</label>
         <select id="emotion">
             <option>anger</option>
             <option>anticipation</option>
@@ -66,7 +66,7 @@
             <option>neutral</option>
         </select>
         <input type="hidden" name="imageDir" id="imageDirSender" />
-        <input id="imageDirSenderButton" type="submit" value="Select Image Folder!" />
+        <input id="imageDirSenderButton" type="submit" style="display:none" value="Select Image Folder!" />
         
         </form>
         <br>
@@ -125,11 +125,8 @@
     // alert('ilker: ' +  nameList);
 
     // this is the main loop to add all images dynamically to the page.
-    var elemNum = 1
-    i=1;
-    // for (var i = 1; i <= userInputNum; i++) {
+    for (var i = 1; i <= userInputNum; i++) {
 
-    while(elemNum <=19){
         var newDiv = document.createElement("div");
         newDiv.id = "imagediv_"+i;//should define an id for each dynamic div here.        
     
@@ -144,19 +141,19 @@
         //     continue
         // }
 
-        $.ajax({
-            url: "http://139.179.50.85/imageGrid/last_study_data/" + finalDirectory + "/image_" + i + ".jpg", //or your url
-          success: function(data){
-            // alert('exists');
-            // i=1;
-          },
-          error: function(data){
-            // alert('zaaaaaaaaa');
-            alert(i);
-            i=i+1;
+        // $.ajax({
+        //     url: "http://139.179.50.85/imageGrid/last_study_data/" + finalDirectory + "/image_" + i + ".jpg", //or your url
+        //   success: function(data){
+        //     // alert('exists');
+        //     // i=1;
+        //   },
+        //   error: function(data){
+        //     // alert('zaaaaaaaaa');
+        //     alert(i);
+        //     i=i+1;
 
-          },
-        })
+        //   },
+        // })
 
         images[i] = new Image(); // creates an image
         images[i].class = "image";
@@ -237,8 +234,6 @@
         my_div = document.getElementById("org_div2");
         document.body.insertBefore(newDiv, my_div);//inserts newDiv before my_div like a stack.
 
-        i = i+1;
-        elemNum = elemNum +1;
     }//end of for 
 
     </script>
