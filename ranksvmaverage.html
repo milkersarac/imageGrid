@@ -85,6 +85,9 @@
     
     <script type="text/javascript">
     var finalDirectory = getQueryVariable("param1");
+    // inorder to recover dropdown to show default anger value
+    document.getElementById("emotion").value = finalDirectory
+
     alert("Images are prepared for the query\n=> " + finalDirectory);
 
     var images = [];

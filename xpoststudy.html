@@ -18,6 +18,7 @@
     <script type="text/javascript">
     function displayQueryEmotionResult()
     {
+        
         var query=document.getElementById("query").value;
         var emotion=document.getElementById("emotion").value;
         if (emotion == "neutral") {
@@ -43,7 +44,6 @@
 
         var baseURL = 'http://139.179.50.85/imageGrid/xpoststudy?';
         window.location = baseURL + 'param1=' + tempDir;
-        // window.location.reload();
     }
 
     function getQueryVariable(variable) {
@@ -103,6 +103,17 @@
     <script type="text/javascript">
     var finalDirectory = getQueryVariable("param1");
     alert("Images are prepared for the query\n=> " + finalDirectory);
+    var qemResult = finalDirectory.split("_");
+    if (qemResult.length < 2) {
+        // no emotion
+        document.getElementById("emotion").value = "neutral";
+        document.getElementById("query").value = qemResult[0];
+    } else{
+        document.getElementById("emotion").value = qemResult[0];
+        document.getElementById("query").value = qemResult[1];
+    };
+
+
 
     var images = [];
     var userInputNum = 20;//number of images shown to the user.        
