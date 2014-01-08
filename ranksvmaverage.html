@@ -18,25 +18,50 @@
     <script type="text/javascript">
     function displayQueryEmotionResult()
     {
-        var emotion=document.getElementById("emotion").value;      
+        // var query=document.getElementById("query").value;
+        var emotion=document.getElementById("emotion").value;
+        // if (emotion == "neutral") {
+        //     emotion = "";
+        // }
+        // else{
+        //     emotion = emotion + "_";
+        // };
         var finalDir=emotion;
+
+        // alert(finalDir);
+        // window.location.reload();
+        
         return finalDir;
     }
 
     function submitQueryEmotion()
     {        
-        // var tempDir = displayQueryEmotionResult();
+        var tempDir = displayQueryEmotionResult();
         // alert('submit query emotion: ' + tempDir);
-        // document.getElementById('imageDirSender').value = tempDir;
-        // document.getElementById('imageDirSenderButton').click();
+        document.getElementById('imageDirSender').value = tempDir;
+        document.getElementById('imageDirSenderButton').click();
 
-        window.location.reload();
+        var baseURL = 'http://139.179.50.85/imageGrid/ranksvmaverage?';
+        window.location = baseURL + 'param1=' + tempDir;
 
+    }
 
+    function getQueryVariable(variable) {
+      var query = window.location.search.substring(1);
+      var vars = query.split("&");
+      for (var i=0;i<vars.length;i++) {
+        var pair = vars[i].split("=");
+        if (pair[0] == variable) {
+            // alert('Query Variable ' + variable + '=' + pair[1]);
+            return pair[1];
+        }
+      } 
+      alert('Please select an emotion');
     }
     </script>
     <div id="selectQueryEmotion">
         <form action="getimages.php" method="POST">
+
         <label>Emotion:</label>
         <select id="emotion">
             <option>anger</option>
@@ -54,15 +79,13 @@
         
         </form>
         <br>
-        <button type="button" id="selectEmotionButtons" onclick="submitQueryEmotion()">Select</button>
+        <button type="button" onclick="submitQueryEmotion()">Select</button>
     </div>
     <br>
     
     <script type="text/javascript">
-
-    //function showImages(){
-    var finalDirectory = displayQueryEmotionResult();
-    // alert("Images are prepared for the query\n=> " + finalDirectory);
+    var finalDirectory = getQueryVariable("param1");
+    alert("Images are prepared for the query\n=> " + finalDirectory);
 
     var images = [];
     var userInputNum = 100;//number of images shown to the user.        
@@ -75,11 +98,10 @@
         newDiv.id = "imagediv_"+i;//should define an id for each dynamic div here.        
     
         var tempWidth = 400;//sets the size of each image on the page.
-        newDiv.setAttribute("style", "width:"+(tempWidth+10)+"px;height:" +(tempWidth+10)+"px;float:left;border:2px solid;background:#dddddd;");
+        newDiv.setAttribute("style", "width:"+(tempWidth+10)+"px;height:" +(tempWidth+100)+"px;float:left;border:2px solid;background:#dddddd;");
         
         images[i] = new Image(); // creates an image
         images[i].class = "image";
-        // alert('ilker: ' + finalDirectory);
         images[i].src = "ranksvm_average/" + finalDirectory + "/image_" + i + ".jpg"; // gets image location from table
 
         images[i].name = "image" + "_" + i; // name property of the image.
@@ -108,16 +130,51 @@
         images[i].style.marginTop = (5)+"px"; // pushes images 5 pixels to the left
         //document.body.appendChild(images[i]); // append newly created image to body
 
+        var checkIn1 = document.createElement("input");
+        checkIn1.type = "checkbox";
+        checkIn1.id = "image_"+i+"_cb1";
+        var label1 = document.createElement('label');
+        label1.htmlFor = "image_"+i+"_cb1";//it should be same with id of checkIn1
+        label1.appendChild(document.createTextNode('Relevant'));//relevancy button
+
+        var checkIn2 = document.createElement("input");
+        checkIn2.type = "checkbox";
+        checkIn2.id = "image_"+i+"_cb2";
+        var label2 = document.createElement('label');
+        label2.htmlFor = "image_"+i+"_cb2";
+        label2.appendChild(document.createTextNode('Emotion'));//emotion exist button
+
         //Add single image to newDiv
         newDiv.appendChild(images[i]);
+
+        //Create a 3 x 3 table of choices and add it below image.
+        var mytable = document.createElement("table");
+        mytable.id = "mytable";
+        mytable.style.marginLeft = (10)+"px";
+
+        var tbody = document.createElement("tbody");
+        //first row
+        var row1 = document.createElement("tr");
+        var cell1 = document.createElement("td");
+        cell1.appendChild(checkIn1);
+        cell1.appendChild(label1);
+        var cell2 = document.createElement("td");
+        cell2.appendChild(checkIn2);
+        cell2.appendChild(label2);
+
+        row1.appendChild(cell1);
+        row1.appendChild(cell2); 
+        
+        //add all rows to table
+        tbody.appendChild(row1);
+        mytable.appendChild( tbody );
+        newDiv.appendChild( mytable );
 
         // add the newly created element and its content into the DOM
         my_div = document.getElementById("org_div2");
         document.body.insertBefore(newDiv, my_div);//inserts newDiv before my_div like a stack.
 
     }//end of for 
-    //}
-    //showImages();
 
     </script>
 
