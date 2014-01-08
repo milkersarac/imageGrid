@@ -101,7 +101,7 @@
         newDiv.id = "imagediv_"+i;//should define an id for each dynamic div here.        
     
         var tempWidth = 400;//sets the size of each image on the page.
-        newDiv.setAttribute("style", "width:"+(tempWidth+10)+"px;height:" +(tempWidth+100)+"px;float:left;border:2px solid;background:#dddddd;");
+        newDiv.setAttribute("style", "width:"+(tempWidth+10)+"px;height:" +(tempWidth+10)+"px;float:left;border:2px solid;background:#dddddd;");
         
         images[i] = new Image(); // creates an image
         images[i].class = "image";
@@ -133,46 +133,10 @@
         images[i].style.marginTop = (5)+"px"; // pushes images 5 pixels to the left
         //document.body.appendChild(images[i]); // append newly created image to body
 
-        var checkIn1 = document.createElement("input");
-        checkIn1.type = "checkbox";
-        checkIn1.id = "image_"+i+"_cb1";
-        var label1 = document.createElement('label');
-        label1.htmlFor = "image_"+i+"_cb1";//it should be same with id of checkIn1
-        label1.appendChild(document.createTextNode('Relevant'));//relevancy button
-
-        var checkIn2 = document.createElement("input");
-        checkIn2.type = "checkbox";
-        checkIn2.id = "image_"+i+"_cb2";
-        var label2 = document.createElement('label');
-        label2.htmlFor = "image_"+i+"_cb2";
-        label2.appendChild(document.createTextNode('Emotion'));//emotion exist button
-
         //Add single image to newDiv
         newDiv.appendChild(images[i]);
 
-        //Create a 3 x 3 table of choices and add it below image.
-        var mytable = document.createElement("table");
-        mytable.id = "mytable";
-        mytable.style.marginLeft = (10)+"px";
-
-        var tbody = document.createElement("tbody");
-        //first row
-        var row1 = document.createElement("tr");
-        var cell1 = document.createElement("td");
-        cell1.appendChild(checkIn1);
-        cell1.appendChild(label1);
-        var cell2 = document.createElement("td");
-        cell2.appendChild(checkIn2);
-        cell2.appendChild(label2);
-
-        row1.appendChild(cell1);
-        row1.appendChild(cell2); 
         
-        //add all rows to table
-        tbody.appendChild(row1);
-        mytable.appendChild( tbody );
-        newDiv.appendChild( mytable );
-
         // add the newly created element and its content into the DOM
         my_div = document.getElementById("org_div2");
         document.body.insertBefore(newDiv, my_div);//inserts newDiv before my_div like a stack.
