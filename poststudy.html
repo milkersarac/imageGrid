@@ -38,7 +38,7 @@
     function submitQueryEmotion()
     {        
         var tempDir = displayQueryEmotionResult();
-        alert('submit query emotion: ' + tempDir);
+        // alert('submit query emotion: ' + tempDir);
         document.getElementById('imageDirSender').value = tempDir;
         document.getElementById('imageDirSenderButton').click();
 
@@ -64,9 +64,35 @@
         <label>Query:</label>
         <select id="query">
             <option>autumn</option>
-            <option>Pear</option>
-            <option>Banana</option>
-            <option>Orange</option>
+            <option>city</option>
+            <option>community</option>
+            <option>cooks</option>
+            <option>country</option>
+            <option>dog</option>
+            <option>environment</option>
+            <option>experience</option>
+            <option>family</option>
+            <option>food</option>
+            <option>girls</option>
+            <option>holiday</option>
+            <option>landscape</option>
+            <option>meeting</option>
+            <option>moments</option>
+            <option>nature</option>
+            <option>paintings</option>
+            <option>parade</option>
+            <option>party</option>
+            <option>people</option>
+            <option>pets</option>
+            <option>places</option>
+            <option>spring</option>
+            <option>street</option>
+            <option>students</option>
+            <option>summer</option>
+            <option>vacation</option>
+            <option>view</option>
+            <option>weather</option>
+            <option>winter</option>
         </select>
         <label>Emotion:</label>
         <select id="emotion">
@@ -103,7 +129,7 @@
     };
 
     var images = [];
-    var userInputNum = 20;//number of images shown to the user.        
+    var userInputNum = 55;//number of images shown to the user.        
     var orImageSizes = [];
 
     // this is the main loop to add all images dynamically to the page.
@@ -113,7 +139,7 @@
         newDiv.id = "imagediv_"+i;//should define an id for each dynamic div here.        
     
         var tempWidth = 400;//sets the size of each image on the page.
-        newDiv.setAttribute("style", "width:"+(tempWidth+10)+"px;height:" +(tempWidth+100)+"px;float:left;border:2px solid;background:#dddddd;");
+        newDiv.setAttribute("style", "width:"+(tempWidth+10)+"px;height:" +(tempWidth+60)+"px;float:left;border:2px solid;background:#dddddd;");
         
         images[i] = new Image(); // creates an image
         images[i].class = "image";
@@ -150,6 +176,9 @@
         images[i].style.marginTop = (5)+"px"; // pushes images 5 pixels to the left
         //document.body.appendChild(images[i]); // append newly created image to body
 
+        //Add single image to newDiv
+        newDiv.appendChild(images[i]);
+
         var checkIn1 = document.createElement("input");
         checkIn1.type = "checkbox";
         checkIn1.id = "image_"+i+"_cb1";
@@ -164,8 +193,19 @@
         label2.htmlFor = "image_"+i+"_cb2";
         label2.appendChild(document.createTextNode('Emotion'));//emotion exist button
 
-        //Add single image to newDiv
-        newDiv.appendChild(images[i]);
+        var checkIn3 = document.createElement("input");
+        checkIn3.type = "checkbox";
+        checkIn3.id = "image_"+i+"_cb3";
+        var label3 = document.createElement('label');
+        label3.htmlFor = "image_"+i+"_cb3";
+        label3.appendChild(document.createTextNode('Invalid'));//When there is no image to show
+
+        // var checkIn4 = document.createElement("input");
+        // checkIn4.type = "checkbox";
+        // checkIn4.id = "image_"+i+"_cb4";
+        // var label4 = document.createElement('label');
+        // label4.htmlFor = "image_"+i+"_cb4";
+        // label4.appendChild(document.createTextNode('TEST'));//When there is no image to show
 
         //Create a 3 x 3 table of choices and add it below image.
         var mytable = document.createElement("table");
@@ -175,15 +215,27 @@
         var tbody = document.createElement("tbody");
         //first row
         var row1 = document.createElement("tr");
+        // var row2 = document.createElement("tr");
+
         var cell1 = document.createElement("td");
         cell1.appendChild(checkIn1);
         cell1.appendChild(label1);
         var cell2 = document.createElement("td");
         cell2.appendChild(checkIn2);
         cell2.appendChild(label2);
+        var cell3 = document.createElement("td");
+        cell3.width = "50%";
+        cell3.align = "right";
+        cell3.appendChild(checkIn3);
+        cell3.appendChild(label3);
+        // var cell4 = document.createElement("td");
+        // cell4.appendChild(checkIn4);
+        // cell4.appendChild(label4);
 
         row1.appendChild(cell1);
         row1.appendChild(cell2); 
+        row1.appendChild(cell3); 
+        // row1.appendChild(cell4);
         
         //add all rows to table
         tbody.appendChild(row1);
@@ -226,17 +278,21 @@
                 // check the values of cb1 and cb2
                 var relcbx = document.getElementById('image_'+i+'_cb1');
                 var emocbx = document.getElementById('image_'+i+'_cb2');
+                var invcbx = document.getElementById('image_'+i+'_cb3');
 
-                var tempImage = {"imageName":images[i].name, "relevant":0, "emotion":0};
+                var tempImage = {"imageName":images[i].name, "relevant":0, "emotion":0, "invalid":0};
 
                 if (relcbx.checked) {
                     if (emocbx.checked) {
                         // if an image is both relevant and the emotion exists
-                        tempImage = {"imageName":images[i].name, "relevant":1, "emotion":1};
+                        tempImage = {"imageName":images[i].name, "relevant":1, "emotion":1, "invalid":0};
                     } else {
                         // if an image is relevant but emotion does not exist
-                        tempImage = {"imageName":images[i].name, "relevant":1, "emotion":0};
+                        tempImage = {"imageName":images[i].name, "relevant":1, "emotion":0, "invalid":0};
                     };
+                };
+                if (invcbx.checked){
+                    tempImage = {"imageName":images[i].name, "relevant":0, "emotion":0, "invalid":1};
                 };
 
                 // push the results of tempImage to resultData json array.

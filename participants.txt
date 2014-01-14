@@ -69,11 +69,11 @@ Barla Cambazoglu - set2user_41 - x
 		set2user_43 - x
 		set2user_44 - x
 		set2user_45 - x
-		set1user_1 - o
-		set1user_2 - o
-		set1user_3 - o
-		set1user_4 - o
-		set1user_5 - o
+		set1user_1 - x
+		set1user_2 - x
+		set1user_3 - x
+		set1user_4 - x
+		set1user_5 - x
 
 M.Ilker Sarac -	set3user_45 - x
 		set3user_30 - x
