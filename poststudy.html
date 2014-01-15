@@ -139,7 +139,7 @@
         newDiv.id = "imagediv_"+i;//should define an id for each dynamic div here.        
     
         var tempWidth = 400;//sets the size of each image on the page.
-        newDiv.setAttribute("style", "width:"+(tempWidth+10)+"px;height:" +(tempWidth+60)+"px;float:left;border:2px solid;background:#dddddd;");
+        newDiv.setAttribute("style", "width:"+(tempWidth+10)+"px;height:" +(tempWidth+100)+"px;float:left;border:2px solid;background:#dddddd;");
         
         images[i] = new Image(); // creates an image
         images[i].class = "image";
@@ -179,68 +179,215 @@
         //Add single image to newDiv
         newDiv.appendChild(images[i]);
 
-        var checkIn1 = document.createElement("input");
-        checkIn1.type = "checkbox";
-        checkIn1.id = "image_"+i+"_cb1";
-        var label1 = document.createElement('label');
-        label1.htmlFor = "image_"+i+"_cb1";//it should be same with id of checkIn1
-        label1.appendChild(document.createTextNode('Relevant'));//relevancy button
+        // If emotion is neutral than we ask what emotion does the image conveys.
+        if (qemResult.length < 2) {
+            // no emotion
+            var checkIn1 = document.createElement("input");
+            checkIn1.type = "checkbox";
+            checkIn1.id = "image_"+i+"_cb1";
+            var label1 = document.createElement('label');
+            label1.htmlFor = "image_"+i+"_cb1";//it should be same with id of checkIn1
+            label1.appendChild(document.createTextNode('Relevant'));//relevancy button
 
-        var checkIn2 = document.createElement("input");
-        checkIn2.type = "checkbox";
-        checkIn2.id = "image_"+i+"_cb2";
-        var label2 = document.createElement('label');
-        label2.htmlFor = "image_"+i+"_cb2";
-        label2.appendChild(document.createTextNode('Emotion'));//emotion exist button
+            var checkIn2 = document.createElement("input");
+            checkIn2.type = "checkbox";
+            checkIn2.id = "image_"+i+"_cb2";
+            var label2 = document.createElement('label');
+            label2.htmlFor = "image_"+i+"_cb2";
+            label2.appendChild(document.createTextNode('Invalid'));//When there is no image to show
 
-        var checkIn3 = document.createElement("input");
-        checkIn3.type = "checkbox";
-        checkIn3.id = "image_"+i+"_cb3";
-        var label3 = document.createElement('label');
-        label3.htmlFor = "image_"+i+"_cb3";
-        label3.appendChild(document.createTextNode('Invalid'));//When there is no image to show
+            //Now these are emotions to add when user selects 'neutral'
+            var checkIn3 = document.createElement("input");
+            checkIn3.type = "checkbox";
+            checkIn3.id = "image_"+i+"_cb3";
+            var label3 = document.createElement('label');
+            label3.htmlFor = "image_"+i+"_cb3";//it should be same with id of checkIn1
+            // label1.style.color = '#FF0505';
+            label3.appendChild(document.createTextNode('Anger'));//emotion_1
 
-        // var checkIn4 = document.createElement("input");
-        // checkIn4.type = "checkbox";
-        // checkIn4.id = "image_"+i+"_cb4";
-        // var label4 = document.createElement('label');
-        // label4.htmlFor = "image_"+i+"_cb4";
-        // label4.appendChild(document.createTextNode('TEST'));//When there is no image to show
+            var checkIn4 = document.createElement("input");
+            checkIn4.type = "checkbox";
+            checkIn4.id = "image_"+i+"_cb4";
+            var label4 = document.createElement('label');
+            label4.htmlFor = "image_"+i+"_cb4";
+            // label2.style.color = '#FFBF80';
+            label4.appendChild(document.createTextNode('Anticipation'));
 
-        //Create a 3 x 3 table of choices and add it below image.
-        var mytable = document.createElement("table");
-        mytable.id = "mytable";
-        mytable.style.marginLeft = (10)+"px";
+            var checkIn5 = document.createElement("input");
+            checkIn5.type = "checkbox";    
+            checkIn5.id = "image_"+i+"_cb5";
+            var label5 = document.createElement('label');
+            label5.htmlFor = "image_"+i+"_cb5";
+            // label3.style.color = '#FFFF00';
+            label5.appendChild(document.createTextNode('Joy'));
 
-        var tbody = document.createElement("tbody");
-        //first row
-        var row1 = document.createElement("tr");
-        // var row2 = document.createElement("tr");
+            var checkIn6 = document.createElement("input");
+            checkIn6.type = "checkbox"; 
+            checkIn6.id = "image_"+i+"_cb6";
+            var label6 = document.createElement('label');
+            label6.htmlFor = "image_"+i+"_cb6";
+            // label4.style.color = '#9ACD32';
+            label6.appendChild(document.createTextNode('Trust'));
 
-        var cell1 = document.createElement("td");
-        cell1.appendChild(checkIn1);
-        cell1.appendChild(label1);
-        var cell2 = document.createElement("td");
-        cell2.appendChild(checkIn2);
-        cell2.appendChild(label2);
-        var cell3 = document.createElement("td");
-        cell3.width = "50%";
-        cell3.align = "right";
-        cell3.appendChild(checkIn3);
-        cell3.appendChild(label3);
-        // var cell4 = document.createElement("td");
-        // cell4.appendChild(checkIn4);
-        // cell4.appendChild(label4);
+            var checkIn7 = document.createElement("input");
+            checkIn7.type = "checkbox"; 
+            checkIn7.id = "image_"+i+"_cb7";
+            var label7 = document.createElement('label');
+            label7.htmlFor = "image_"+i+"_cb7";
+            // label5.style.color = '#00CC00';
+            label7.appendChild(document.createTextNode('Fear'));
 
-        row1.appendChild(cell1);
-        row1.appendChild(cell2); 
-        row1.appendChild(cell3); 
-        // row1.appendChild(cell4);
-        
-        //add all rows to table
-        tbody.appendChild(row1);
-        mytable.appendChild( tbody );
-        newDiv.appendChild( mytable );
+            var checkIn8 = document.createElement("input");
+            checkIn8.type = "checkbox"; 
+            checkIn8.id = "image_"+i+"_cb8";
+            var label8 = document.createElement('label');
+            label8.htmlFor = "image_"+i+"_cb8";
+            // label6.style.color = '#0066CC';
+            label8.appendChild(document.createTextNode('Surprise'));
+
+            var checkIn9 = document.createElement("input");
+            checkIn9.type = "checkbox"; 
+            checkIn9.id = "image_"+i+"_cb9";
+            var label9 = document.createElement('label');
+            label9.htmlFor = "image_"+i+"_cb9";
+            // label7.style.color = '#CC00CC';
+            label9.appendChild(document.createTextNode('Sadness'));
+
+            var checkIn10 = document.createElement("input");
+            checkIn10.type = "checkbox"; 
+            checkIn10.id = "image_"+i+"_cb10";
+            var label10 = document.createElement('label');
+            label10.htmlFor = "image_"+i+"_cb10";
+            // label8.style.color = '#FF33FF';
+            label10.appendChild(document.createTextNode('Disgust'));
+
+
+
+            //Create a 3 x 3 table of choices and add it below image.
+            var mytable = document.createElement("table");
+            mytable.id = "mytable";
+            mytable.style.marginLeft = (10)+"px";
+
+            var tbody = document.createElement("tbody");
+
+            //first row
+            var row1 = document.createElement("tr");
+            var cell1 = document.createElement("td");
+            cell1.appendChild(checkIn1);
+            cell1.appendChild(label1);
+            var cell2 = document.createElement("td");
+            // cell2.width = "50%";
+            // cell2.align = "right";
+            cell2.appendChild(checkIn2);
+            cell2.appendChild(label2);
+            row1.appendChild(cell1);
+            row1.appendChild(cell2); 
+
+            //second row
+            var row2 = document.createElement("tr");
+            var cell3 = document.createElement("td");
+            cell3.appendChild(checkIn3);
+            cell3.appendChild(label3);
+            var cell4 = document.createElement("td");
+            cell4.appendChild(checkIn4);
+            cell4.appendChild(label4);
+            var cell5 = document.createElement("td");
+            cell5.appendChild(checkIn5);
+            cell5.appendChild(label5);
+            var cell6 = document.createElement("td");
+            cell6.appendChild(checkIn6);
+            cell6.appendChild(label6);
+            row2.appendChild(cell3);
+            row2.appendChild(cell4);
+            row2.appendChild(cell5);
+            row2.appendChild(cell6);            
+            
+            //third row
+            var row3 = document.createElement("tr");
+            var cell7 = document.createElement("td");
+            cell7.appendChild(checkIn7);
+            cell7.appendChild(label7);
+            var cell8 = document.createElement("td");
+            cell8.appendChild(checkIn8);
+            cell8.appendChild(label8);
+            var cell9 = document.createElement("td");
+            cell9.appendChild(checkIn9);
+            cell9.appendChild(label9);
+            var cell10 = document.createElement("td");
+            cell10.appendChild(checkIn10);
+            cell10.appendChild(label10);
+            row3.appendChild(cell7);
+            row3.appendChild(cell8);
+            row3.appendChild(cell9);
+            row3.appendChild(cell10);
+
+
+            //add all rows to table
+            tbody.appendChild(row1);
+            tbody.appendChild(row2);
+            tbody.appendChild(row3);
+            mytable.appendChild( tbody );
+            newDiv.appendChild( mytable );
+                
+        } else{ // we know the emotion from the query just ask whether rlevant and conveys that emotion.
+            var checkIn1 = document.createElement("input");
+            checkIn1.type = "checkbox";
+            checkIn1.id = "image_"+i+"_cb1";
+            var label1 = document.createElement('label');
+            label1.htmlFor = "image_"+i+"_cb1";//it should be same with id of checkIn1
+            label1.appendChild(document.createTextNode('Relevant'));//relevancy button
+
+            var checkIn2 = document.createElement("input");
+            checkIn2.type = "checkbox";
+            checkIn2.id = "image_"+i+"_cb2";
+            var label2 = document.createElement('label');
+            label2.htmlFor = "image_"+i+"_cb2";
+            label2.appendChild(document.createTextNode('Emotion'));//emotion exist button
+
+            var checkIn3 = document.createElement("input");
+            checkIn3.type = "checkbox";
+            checkIn3.id = "image_"+i+"_cb3";
+            var label3 = document.createElement('label');
+            label3.htmlFor = "image_"+i+"_cb3";
+            label3.appendChild(document.createTextNode('Invalid'));//When there is no image to show
+
+            //Create a 3 x 3 table of choices and add it below image.
+            var mytable = document.createElement("table");
+            mytable.id = "mytable";
+            mytable.style.marginLeft = (10)+"px";
+
+            var tbody = document.createElement("tbody");
+            //first row
+            var row1 = document.createElement("tr");
+            // var row2 = document.createElement("tr");
+
+            var cell1 = document.createElement("td");
+            cell1.appendChild(checkIn1);
+            cell1.appendChild(label1);
+            var cell2 = document.createElement("td");
+            cell2.appendChild(checkIn2);
+            cell2.appendChild(label2);
+            var cell3 = document.createElement("td");
+            cell3.width = "50%";
+            cell3.align = "right";
+            cell3.appendChild(checkIn3);
+            cell3.appendChild(label3);
+            // var cell4 = document.createElement("td");
+            // cell4.appendChild(checkIn4);
+            // cell4.appendChild(label4);
+
+            row1.appendChild(cell1);
+            row1.appendChild(cell2); 
+            row1.appendChild(cell3); 
+            // row1.appendChild(cell4);
+            
+            //add all rows to table
+            tbody.appendChild(row1);
+            mytable.appendChild( tbody );
+            newDiv.appendChild( mytable );
+        };
+
+
 
         // add the newly created element and its content into the DOM
         my_div = document.getElementById("org_div2");
@@ -275,28 +422,66 @@
 
             for (var i = 1; i <= userInputNum; i++) {
 
-                // check the values of cb1 and cb2
-                var relcbx = document.getElementById('image_'+i+'_cb1');
-                var emocbx = document.getElementById('image_'+i+'_cb2');
-                var invcbx = document.getElementById('image_'+i+'_cb3');
+                if (qemResult.length < 2) {
+                    // alert('burasi neutral= ' + qemResult[0] + '+' + qemResult[1]);
 
-                var tempImage = {"imageName":images[i].name, "relevant":0, "emotion":0, "invalid":0};
+                    var relcbx = document.getElementById('image_'+i+'_cb1');
+                    var invcbx = document.getElementById('image_'+i+'_cb2');
 
-                if (relcbx.checked) {
-                    if (emocbx.checked) {
-                        // if an image is both relevant and the emotion exists
-                        tempImage = {"imageName":images[i].name, "relevant":1, "emotion":1, "invalid":0};
-                    } else {
-                        // if an image is relevant but emotion does not exist
-                        tempImage = {"imageName":images[i].name, "relevant":1, "emotion":0, "invalid":0};
+                    if (invcbx.checked) {
+                        var tempImage = {"imageName":images[i].name, "relevant":0, "emotion":0, "invalid":1};
+                        // push the results of tempImage to resultData json array.
+                        resultData.imResults.push(tempImage);
+                    } else if(relcbx.checked){
+                        var isCheckedCbx = false;
+                        for(var j = 3; j <= 10; j++){
+                            var tmpCbx = document.getElementById('image_'+i+'_cb'+j);
+                            if(tmpCbx.checked){
+                                isCheckedCbx = true;
+                                // alert('image '+i+' checkbox '+j+' is checked.');
+                                var tempImage = {"imageName":images[i].name, "relevant":1, "emotion":"emotion_"+(j-2), "invalid":0};
+                                resultData.imResults.push(tempImage);
+                            }                   
+                        }
+                        if (!isCheckedCbx) {
+                            var tempImage = {"imageName":images[i].name, "relevant":1, "emotion":0, "invalid":0};
+                            resultData.imResults.push(tempImage);
+                        };
+
+                    } else{// image is irrelevant but valid.
+                        var tempImage = {"imageName":images[i].name, "relevant":0, "emotion":0, "invalid":0};
+                        // push the results of tempImage to resultData json array.
+                        resultData.imResults.push(tempImage);
                     };
-                };
-                if (invcbx.checked){
-                    tempImage = {"imageName":images[i].name, "relevant":0, "emotion":0, "invalid":1};
+                   
+                    
+                } else{
+                    // alert('burasi ikili= ' + qemResult[0] + '+' + qemResult[1]);
+                    // check the values of cb1, cb2 and cb3
+                    var relcbx = document.getElementById('image_'+i+'_cb1');
+                    var emocbx = document.getElementById('image_'+i+'_cb2');
+                    var invcbx = document.getElementById('image_'+i+'_cb3');
+
+                    var tempImage = {"imageName":images[i].name, "relevant":0, "emotion":0, "invalid":0};
+
+                    if (relcbx.checked) {
+                        if (emocbx.checked) {
+                            // if an image is both relevant and the emotion exists
+                            tempImage = {"imageName":images[i].name, "relevant":1, "emotion":1, "invalid":0};
+                        } else {
+                            // if an image is relevant but emotion does not exist
+                            tempImage = {"imageName":images[i].name, "relevant":1, "emotion":0, "invalid":0};
+                        };
+                    };
+                    if (invcbx.checked){
+                        tempImage = {"imageName":images[i].name, "relevant":0, "emotion":0, "invalid":1};
+                    };
+
+                    // push the results of tempImage to resultData json array.
+                    resultData.imResults.push(tempImage);
                 };
 
-                // push the results of tempImage to resultData json array.
-                resultData.imResults.push(tempImage);
+                
 
             }
 
